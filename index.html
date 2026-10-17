@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Món quà nhỏ dành cho bạn · 20/10</title>
+<style>
+:root{--night:#100e20;--rose:#f2a7c6;--cream:#fff7f0;--muted:#c8b7cc;--gold:#f5d89b;--ink:#3b2a43}
+*{box-sizing:border-box}html{min-height:100%;background:var(--night)}
+body{margin:0;min-height:100svh;padding:clamp(12px,3vw,34px);overflow-x:hidden;position:relative;color:var(--cream);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 50% 10%,#49305f 0%,transparent 43%),radial-gradient(ellipse at 8% 90%,#311d42 0%,transparent 35%),linear-gradient(145deg,#100e20,#191329 55%,#0e1422)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(1px 1px at 12% 18%,#fff 99%,transparent),radial-gradient(2px 2px at 77% 12%,#f7d9a5 99%,transparent),radial-gradient(1px 1px at 88% 58%,#fff 99%,transparent),radial-gradient(1px 1px at 21% 73%,#f3b7d1 99%,transparent);background-size:320px 260px}
+
+/* LETTER */
+.letter-stage{position:fixed;inset:0;z-index:5;width:100%;min-height:100svh;text-align:center;transition:opacity .6s,transform .6s}
+.letter-stage.hide{opacity:0;transform:scale(.92);pointer-events:none}
+.envelope{position:absolute;top:50%;left:50%;width:min(calc(100% - 32px),340px);height:230px;margin:0;transform:translate(-50%,-50%);cursor:pointer;filter:drop-shadow(0 20px 48px #05040c90);transition:transform .35s cubic-bezier(.2,.8,.2,1);perspective:800px}
+.envelope:hover{transform:translate(-50%,calc(-50% - 8px)) scale(1.03)}
+.envelope .body{position:absolute;bottom:0;left:0;width:100%;height:160px;background:linear-gradient(160deg,#fff9f4,#f8e4ec 55%,#edd0dc);border-radius:0 0 14px 14px;z-index:2;box-shadow:inset 0 1px #fff;border:1px solid #e8c4d466;border-top:none}
+.envelope .body:after{content:"";position:absolute;inset:12px 18px 18px;border:1px dashed #d4a8b855;border-radius:8px;pointer-events:none}
+.envelope .flap{position:absolute;top:0;left:0;width:100%;height:115px;background:linear-gradient(175deg,#fceef4,#f0d0de 60%,#e4b8cc);clip-path:polygon(0 0,50% 78%,100% 0);transform-origin:top center;transition:transform .75s cubic-bezier(.4,0,.2,1);z-index:3;border-radius:6px 6px 0 0}
+.envelope.open .flap{transform:rotateX(180deg);z-index:1}
+.envelope .seal{position:absolute;top:88px;left:50%;transform:translateX(-50%);width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#ffe8b0,#e8a070 45%,#c45a7a);box-shadow:0 5px 18px #c45a7a55,inset 0 2px 4px #fff8;z-index:4;display:grid;place-items:center;font-size:1.25rem;color:#fff;transition:opacity .4s,transform .4s;border:2px solid #f5d89b88}
+.envelope.open .seal{opacity:0;transform:translateX(-50%) scale(.5) rotate(20deg)}
+.letter-paper{position:absolute;bottom:22px;left:50%;transform:translateX(-50%) translateY(16px);width:88%;height:130px;background:linear-gradient(180deg,#fffefb,#fff8f2);border-radius:8px;box-shadow:0 6px 22px #0002,inset 0 0 0 1px #f0e0d8;opacity:0;transition:opacity .5s .25s,transform .65s cubic-bezier(.2,.8,.2,1);z-index:1;display:grid;place-items:center;padding:18px 16px;font-family:Georgia,serif;font-size:.98rem;color:#5a3a4a;line-height:1.55}
+.envelope.open .letter-paper{opacity:1;transform:translateX(-50%) translateY(-38px)}
+.letter-title{font-size:1.2rem;margin-bottom:8px;color:#9b4a6e;font-weight:600}
+.letter-hint{position:absolute;top:calc(50% + 135px);left:0;width:100%;padding:0 16px;color:#c4a8b8;font-size:.88rem;margin:0}
+
+/* CARD */
+.card{position:relative;z-index:2;width:min(100%,720px);min-height:calc(100svh - clamp(24px,6vw,68px));margin:0 auto;padding:clamp(20px,4vw,40px) clamp(20px,4vw,40px) 58px;text-align:center;overflow:hidden;opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;pointer-events:none}
+.card.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.card.wish-stage{height:calc(100svh - clamp(24px,6vw,68px));min-height:0;padding:12px clamp(14px,4vw,28px) 42px}
+.card.wish-stage h1{margin:2px 0;font-size:clamp(1.35rem,4vw,2rem)}
+.card.wish-stage .subtitle{margin:0;font-size:.76rem}
+.card.wish-stage .robot-area{height:clamp(142px,30vw,162px);margin:4px auto 8px}
+.card.wish-stage .message-wrap.wish-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(104px,.42fr);grid-template-areas:"text flower" "action flower";align-items:center;gap:4px 12px}
+.card.wish-stage .message{grid-area:text;height:clamp(145px,22svh,190px);padding:4px 8px;font-size:clamp(.8rem,2vw,.96rem);line-height:1.48;transition:opacity .35s}
+.card.wish-stage .message.message-hidden{opacity:0}
+.card.wish-stage .message-wrap.wish-layout #nextButton{grid-area:action;width:fit-content;margin:0 auto}
+.card.wish-stage .bouquet-row{grid-area:flower;display:none;margin:0}
+.card.wish-stage .bouquet-row.has-flower{display:flex;min-height:clamp(145px,22svh,190px);align-items:center}
+.card.wish-stage .bouquet-side{width:clamp(100px,22vw,150px)}
+.card.wish-stage .stars-container{gap:clamp(14px,4vw,24px);margin:4px 0}
+.card.wish-stage .wish-star{width:clamp(44px,11vw,52px);height:clamp(44px,11vw,52px)}
+.card.wish-stage .hint{min-height:1em;margin:4px 0;font-size:clamp(.72rem,1.8vw,.84rem)}
+h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(1.7rem,4.8vw,2.8rem);line-height:1.15;margin:8px 0;letter-spacing:-.03em;color:#fff7f0}
+h1 span{color:var(--rose);font-style:italic}
+.subtitle{font-size:clamp(.8rem,2vw,.93rem);color:var(--muted);letter-spacing:.04em;margin-bottom:6px}
+
+/* ROBOT – no circles */
+.robot-area{position:relative;width:min(100%,280px);height:clamp(150px,36vw,198px);margin:4px auto 8px}
+.robot{position:absolute;width:clamp(108px,27vw,138px);height:clamp(96px,23vw,122px);left:50%;top:50%;transform:translate(-50%,-45%);animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -6px}}
+.head{position:absolute;inset:0;border-radius:42% 42% 39% 39%;background:linear-gradient(140deg,#fffaf9,#d9d1f2 70%,#b9acd9);padding:8px;box-shadow:inset 0 -6px #a79acb,0 14px 30px #08061280}
+.antenna{position:absolute;z-index:4;top:-18px;left:calc(50% - 2px);width:4px;height:22px;border-radius:5px;background:#b9a4e7}
+.antenna:after{content:"";position:absolute;left:-5px;top:-8px;width:14px;height:14px;border-radius:50%;background:var(--rose);box-shadow:0 0 16px #f2a7c6}
+.ear{position:absolute;top:42%;width:16px;height:34px;border-radius:8px;background:linear-gradient(#c3b6ef,#8174b9);z-index:-1}
+.ear.left{left:-9px}.ear.right{right:-9px}
+.face{height:100%;border-radius:38% 38% 35% 35%;background:linear-gradient(145deg,#29263f,#19182d);position:relative;box-shadow:inset 0 2px 10px #070610}
+.eye{position:absolute;top:34%;width:12px;height:22px;border-radius:50%;background:#9ceaff;box-shadow:0 0 10px #8ce8ff,0 0 22px #70dfff80;animation:blink 5.4s infinite}
+.eye.left{left:25%}.eye.right{right:25%;animation-delay:.12s}
+@keyframes blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}
+.mouth{position:absolute;left:50%;bottom:23%;width:22px;height:10px;transform:translateX(-50%);border-bottom:3px solid #9ceaff;border-radius:0 0 50% 50%}
+.cheek{position:absolute;top:58%;width:18px;height:8px;border-radius:50%;background:#ff8fb7;filter:blur(4px);opacity:0;transition:opacity .3s}
+.cheek.left{left:10%}.cheek.right{right:10%}
+.robot.blush .eye{animation:none;height:5px;top:40%;box-shadow:none;border-radius:50% 50% 2px 2px}
+.robot.blush .cheek{opacity:.9}
+.robot.blush .mouth{width:18px}
+
+/* MESSAGE CENTERED */
+.message-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  max-width:560px;
+  margin:0 auto;
+}
+.message{
+  width:100%;
+  height:clamp(220px,32vh,290px);
+  padding:8px clamp(8px,2vw,16px);
+  display:flex;align-items:center;justify-content:center;
+  white-space:pre-line;overflow-wrap:anywhere;overflow-y:auto;
+  color:#f5eaf5;
+  text-shadow:0 1px 10px #100e20,0 0 22px #f2a7c633;
+  font-size:clamp(.9rem,2.4vw,1.05rem);line-height:1.7;
+  text-align:center;
+}
+
+/* BOUQUET – dưới / bên cạnh message, KHÔNG dính robot */
+.bouquet-row{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  gap:0;
+  margin-top:12px;
+  min-height:0;
+  transition:min-height .4s;
+}
+.bouquet-row.has-flower{min-height:205px}
+.bouquet-side{
+  width:clamp(165px,38vw,190px);
+  opacity:0;
+  transform:scale(.4) translateY(20px);
+  transition:opacity 1s ease, transform 1.1s cubic-bezier(.2,.85,.2,1);
+  filter:drop-shadow(0 10px 20px #e8a3bd50);
+  pointer-events:none;
+}
+.bouquet-side.show{opacity:1;transform:scale(1) translateY(0)}
+.bouquet-side svg{width:100%;height:auto;display:block}
+.bouquet-side .sway{animation:sway 3.2s ease-in-out infinite alternate}
+.bouquet-side .sway2{animation:sway 3.6s ease-in-out infinite alternate-reverse}
+.bouquet-side .ribbon-loop{transform-box:fill-box;transform-origin:center;animation:ribbonFlutter 3.2s ease-in-out infinite alternate}
+.bouquet-side .ribbon-loop.right{animation-delay:.35s;animation-direction:alternate-reverse}
+.bouquet-side .ribbon-knot{transform-box:fill-box;transform-origin:center;animation:ribbonGlimmer 2.4s ease-in-out infinite}
+@keyframes ribbonFlutter{from{rotate:-3deg}to{rotate:3deg}}
+@keyframes ribbonGlimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.22)}}
+@keyframes sway{to{rotate:3deg}}
+
+.hint{min-height:1.4em;color:#d7c4dc;font-size:clamp(.8rem,2vw,.92rem);margin:12px 0 10px}
+.counter{display:none;color:var(--gold);font-weight:650;letter-spacing:.08em;margin:6px auto;font-size:.9rem}
+button{font:inherit}
+.music-toggle{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));z-index:30;min-height:44px;padding:10px 16px;border:1px solid #ffffff45;border-radius:999px;color:#fff7f0;background:#241b35e8;box-shadow:0 6px 22px #05040c70;cursor:pointer;backdrop-filter:blur(10px)}
+.music-toggle:hover{background:#3a2949}
+.music-source{position:fixed;left:-2px;bottom:0;width:1px;height:1px;opacity:.01;pointer-events:none}
+.card button:not(.wish-star){min-height:48px;padding:13px 26px;border:1px solid #ffffff45;border-radius:999px;color:#28182e;font-size:.92rem;font-weight:700;cursor:pointer;background:linear-gradient(110deg,#f7c9d9,#f3dba9);box-shadow:0 7px 24px #e4a5c52a;transition:transform .2s,box-shadow .2s}
+.card button:not(.wish-star):hover{transform:translateY(-2px);box-shadow:0 11px 28px #e4a5c54a}
+.card button:focus-visible,.wish-star:focus-visible,.game-heart:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.card button:disabled{opacity:.65;cursor:default}
+.message-wrap #nextButton{margin:4px 0 0}
+.hidden{display:none!important}
+
+/* HEARTS – SVG đúng */
+.game-heart{position:fixed;z-index:10;width:46px;height:46px;padding:0;border:0;background:transparent;cursor:pointer;filter:drop-shadow(0 4px 12px #ff6b9d70);animation:heartFloat 2.5s ease-in-out infinite alternate;touch-action:manipulation}
+.game-heart svg{width:100%;height:100%;display:block;pointer-events:none}
+.game-heart:hover{transform:scale(1.2)}
+@keyframes heartFloat{from{translate:0 5px}to{translate:0 -14px}}
+.game-heart.caught{pointer-events:none;animation:caught .4s forwards}
+@keyframes caught{to{transform:scale(1.8) rotate(18deg);opacity:0}}
+
+.stars-container{display:none;justify-content:center;gap:clamp(14px,4vw,26px);margin:14px 0}
+.wish-star{width:clamp(50px,13vw,60px);height:clamp(50px,13vw,60px);border-radius:50%;border:1px solid #f5d89b99;color:var(--gold);background:linear-gradient(145deg,#ffffff18,#ffffff06);box-shadow:inset 0 0 18px #f5d89b0b,0 5px 20px #03020a30;cursor:pointer;font-size:1.45rem;transition:transform .25s,background .25s}
+.wish-star:hover{transform:translateY(-4px) rotate(6deg);background:#f5d89b18}
+.wish-star.opened{background:#f2a7c62b;border-color:var(--rose);color:#f2a7c6;transform:scale(.92)}
+
+.particle{position:fixed;z-index:1;pointer-events:none;bottom:-24px;width:8px;height:13px;border-radius:80% 10% 80% 10%;background:linear-gradient(145deg,#ffe5ed,#dc79a5);box-shadow:0 0 12px #f2a7c633;animation:rise var(--duration,5s) linear forwards}
+.particle.spark{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+@keyframes rise{to{transform:translate3d(var(--drift,20px),-115vh,0) rotate(240deg);opacity:0}}
+.meteor{position:fixed;z-index:1;top:var(--meteor-top);left:var(--meteor-left);width:var(--meteor-length,90px);height:1px;pointer-events:none;opacity:0;background:linear-gradient(90deg,transparent 0%,#f7d9a5aa 72%,#fff 100%);box-shadow:0 0 5px #f5d89b99;transform:rotate(var(--meteor-angle,135deg));transform-origin:right center;animation:meteorFall var(--meteor-duration,1.5s) cubic-bezier(.22,.61,.36,1) forwards}
+.meteor:after{content:"";position:absolute;right:-1px;top:-1.5px;width:4px;height:4px;border-radius:50%;background:#fffdf0;box-shadow:0 0 5px 2px #fff7d9,0 0 12px 4px #f5d89b88}
+@keyframes meteorFall{0%{opacity:0;translate:0 0}14%{opacity:.72}72%{opacity:.52}100%{opacity:0;translate:-30vw 30vh}}
+
+.final-note{width:min(100%,500px);margin:12px auto 0;padding:12px 15px;border-top:1px solid #f5d89b50;border-bottom:1px solid #f5d89b50;color:#f5eaf5;font-family:inherit;font-style:normal;font-size:clamp(.9rem,2.4vw,1.05rem);font-weight:500;line-height:1.6;text-align:center;overflow-wrap:anywhere;text-shadow:0 1px 8px #100e20}
+.card:after{content:"20 · 10";position:absolute;left:0;right:0;bottom:16px;margin:0;color:#97849e;font-size:.68rem;letter-spacing:.24em;pointer-events:none}
+
+/* HungNt greeting */
+.marquee-wrap{position:fixed;left:0;right:0;bottom:12%;z-index:20;width:100%;max-width:100vw;box-sizing:border-box;padding:8px clamp(12px,3vw,32px);pointer-events:none;opacity:0;transition:opacity .6s;overflow:hidden;min-height:clamp(72px,12vh,104px);display:flex;align-items:center;gap:clamp(12px,3vw,32px);background:linear-gradient(90deg,#100e20dd,#100e2099 76%,transparent)}
+.marquee-wrap.active{opacity:1}
+.hungnt-poem{flex:0 0 28%;max-width:360px;color:#fff0d7;font:500 clamp(.68rem,1.4vw,.9rem)/1.55 Arial,Tahoma,system-ui,sans-serif;text-align:left;text-shadow:0 1px 8px #100e20}
+.marquee-row{flex:1 1 0;min-width:0;height:clamp(22px,4vh,32px);overflow:hidden}
+.marquee-track{display:flex;flex:0 0 max-content;flex-wrap:nowrap;align-items:center;width:max-content;height:100%;white-space:nowrap;animation:marquee-left var(--marquee-speed,40s) linear infinite}
+.marquee-track span{display:block;flex:0 0 auto;padding:0 4vw;white-space:nowrap;font-family:Arial,Tahoma,system-ui,sans-serif;font-size:clamp(.68rem,2.7vw,1rem);font-weight:500;line-height:1.3;letter-spacing:.01em;color:#fff7f0;text-shadow:0 0 16px #f2a7c6aa,0 2px 6px #0007}
+@keyframes marquee-left{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+@media(max-width:480px){
+  .marquee-wrap{bottom:8%;min-height:0;padding:8px 12px;flex-direction:column;align-items:stretch;gap:6px;background:linear-gradient(180deg,#100e20dd,#100e20aa)}
+  .hungnt-poem{flex:0 0 auto;max-width:none;font-size:.72rem;line-height:1.45}
+  .marquee-row{flex:none;width:100%;height:24px}
+  body{padding:10px}
+  .card{min-height:calc(100svh - 20px);padding:18px 12px 56px;border-radius:22px}
+  .robot-area{height:142px}
+  .message{height:clamp(210px,34vh,280px);padding:8px 4px}
+  .card button:not(.wish-star){width:100%;max-width:280px}
+  .bouquet-side{width:clamp(145px,48vw,175px)}
+  .bouquet-row.has-flower{min-height:185px}
+  .envelope{height:205px}
+  .letter-hint{top:calc(50% + 122px)}
+  .envelope .flap{height:100px}
+  .envelope .body{height:140px}
+}
+@media(max-height:700px){
+  .card.wish-stage{padding-top:8px;padding-bottom:34px}
+  .card.wish-stage .subtitle{display:none}
+  .card.wish-stage .robot-area{height:142px}
+  .card.wish-stage .message-wrap.wish-layout{grid-template-columns:minmax(0,1fr) minmax(86px,30%);gap:2px 6px}
+  .card.wish-stage .message{height:clamp(126px,22svh,170px);font-size:.78rem}
+  .card.wish-stage .bouquet-row.has-flower{min-height:clamp(126px,22svh,170px)}
+  .card.wish-stage .bouquet-side{width:clamp(82px,24vw,112px)}
+  .card.wish-stage .wish-star{width:42px;height:42px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .marquee-track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="letter-stage" id="letterStage">
+  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Mở bức thư">
+    <div class="flap"></div>
+    <div class="body"></div>
+    <div class="seal">♥</div>
+    <div class="letter-paper">
+      <div>
+        <div class="letter-title">Gửi bạn 💌</div>
+        Có một món quà nhỏ<br>đang chờ cậu mở ra…
+      </div>
+    </div>
+  </div>
+  <p class="letter-hint" id="letterHint">Chạm vào phong bì để mở thư nhé</p>
+</div>
+
+<main class="card" id="mainCard">
+  <div class="eyebrow">A LITTLE NOTE, JUST FOR YOU</div>
+  <h1>Một món quà <span>dành cho bạn</span></h1>
+  <p class="subtitle">Một món quà nhỏ được chuẩn bị bằng cả sự chân thành cho 20/10 sắp tới</p>
+
+  <div class="robot-area">
+    <div class="robot" id="robot">
+      <div class="antenna"></div>
+      <div class="head">
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+        <div class="face">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="cheek left"></div>
+          <div class="cheek right"></div>
+          <div class="mouth"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ô tin nhắn GIỮA -->
+  <div class="message-wrap" id="messageWrap">
+    <div class="message" id="message">Xin chờ một chút nha...</div>
+    <button id="nextButton" class="hidden">Bắt đầu nào</button>
+    <!-- Bó hoa nằm DƯỚI ô tin nhắn, căn giữa, không dính robot -->
+    <div class="bouquet-row" id="bouquetRow">
+      <div class="bouquet-side" id="bouquet">
+        <svg viewBox="0 0 280 290" role="img" aria-label="Bó hoa hồng được gói giấy và thắt nơ">
+          <defs>
+            <linearGradient id="wrapG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff5e8"/><stop offset=".5" stop-color="#f0d4c8"/><stop offset="1" stop-color="#c89b91"/></linearGradient>
+            <linearGradient id="roseG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe8f0"/><stop offset=".45" stop-color="#f2a0bc"/><stop offset="1" stop-color="#c45a82"/></linearGradient>
+            <linearGradient id="roseDark" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e07a9e"/><stop offset="1" stop-color="#a13d62"/></linearGradient>
+            <linearGradient id="creamG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff8e0"/><stop offset="1" stop-color="#e8c478"/></linearGradient>
+            <linearGradient id="leafG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8d4a8"/><stop offset="1" stop-color="#4a7a58"/></linearGradient>
+            <radialGradient id="centerG" cx=".4" cy=".35" r=".6"><stop stop-color="#fff0c8"/><stop offset="1" stop-color="#d4a050"/></radialGradient>
+            <linearGradient id="ribbonG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0e8"/><stop offset=".42" stop-color="#e982a4"/><stop offset="1" stop-color="#b94370"/></linearGradient>
+            <linearGradient id="ribbonHighlight" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <radialGradient id="leafSheen" cx=".3" cy=".2" r=".9"><stop stop-color="#d6e7bd"/><stop offset=".48" stop-color="#83ae7a"/><stop offset="1" stop-color="#42664b"/></radialGradient>
+          </defs>
+          <g class="sway" stroke="#55775b" stroke-width="3" stroke-linecap="round" fill="none">
+            <path d="M140 240 Q111 158 82 75"/><path d="M140 240 Q134 137 140 51"/><path d="M140 240 Q174 157 202 78"/>
+            <path d="M140 240 Q105 179 111 116"/><path d="M140 240 Q177 177 170 116"/><path d="M140 240 Q126 163 96 108"/>
+          </g>
+          <g class="sway2" fill="url(#leafSheen)" stroke="#42664b" stroke-width="1">
+            <path d="M111 197 Q58 185 67 145 Q104 151 111 197Z"/><path d="M168 194 Q221 177 213 139 Q179 151 168 194Z"/>
+            <path d="M126 221 Q82 221 83 184 Q113 185 126 221Z"/><path d="M154 220 Q198 220 198 183 Q168 184 154 220Z"/>
+            <path d="M93 150 Q61 122 81 99 Q106 119 93 150Z"/><path d="M187 151 Q218 121 198 99 Q174 120 187 151Z"/>
+            <path d="M132 171 Q101 143 119 121 Q143 141 132 171Z"/><path d="M150 171 Q181 143 163 121 Q139 141 150 171Z"/>
+          </g>
+          <g class="sway2" transform="translate(83 76)">
+            <path d="M-27 3 Q-28-25-7-31 Q0-19 6-32 Q29-22 27 3 Q22 27 0 29 Q-24 25-27 3Z" fill="url(#roseG)" stroke="#bb5478" stroke-width="1.4"/>
+            <path d="M-20 5 Q-20-15-5-22 Q2-12 8-23 Q21-14 20 4 Q17 19 1 21 Q-15 19-20 5Z" fill="#e985a6"/>
+            <path d="M-12 4 Q-13-9-2-15 Q5-8 11-14 Q16-4 12 7 Q8 15-1 14 Q-11 13-12 4Z" fill="#f7bfd0"/>
+            <path d="M-7 3 Q-5-5 2-7 Q8-5 7 2 Q5 9-2 8 Q-7 7-7 3Z" fill="url(#roseDark)"/>
+            <path d="M-18-10 Q-12-23-3-24 M14-16 Q23-8 21 1" fill="none" stroke="#fff4f5" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g class="sway" transform="translate(140 55) scale(1.08)">
+            <path d="M-28 4 Q-30-24-8-32 Q0-20 7-33 Q30-22 28 4 Q23 28 0 30 Q-24 26-28 4Z" fill="url(#roseG)" stroke="#bb5478" stroke-width="1.4"/>
+            <path d="M-21 5 Q-21-15-6-23 Q1-12 9-23 Q22-14 21 4 Q17 20 1 22 Q-16 20-21 5Z" fill="#eb91ad"/>
+            <path d="M-13 4 Q-14-9-2-16 Q5-8 12-14 Q17-4 12 7 Q8 16-1 15 Q-12 13-13 4Z" fill="#f9c9d7"/>
+            <path d="M-7 3 Q-5-5 2-8 Q9-5 7 2 Q5 10-2 8 Q-8 7-7 3Z" fill="url(#roseDark)"/>
+            <path d="M-18-11 Q-12-24-3-25 M15-16 Q24-8 21 2" fill="none" stroke="#fff4f5" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g class="sway2" transform="translate(198 78)">
+            <path d="M-26 3 Q-28-22-7-29 Q0-18 6-30 Q28-20 26 3 Q21 25 0 27 Q-23 23-26 3Z" fill="url(#roseG)" stroke="#bb5478" stroke-width="1.4"/>
+            <path d="M-19 4 Q-19-14-5-21 Q2-11 8-21 Q20-12 19 3 Q16 18 1 20 Q-14 18-19 4Z" fill="#e985a6"/>
+            <path d="M-12 4 Q-13-8-2-14 Q5-7 10-13 Q15-3 11 7 Q7 14-1 13 Q-11 12-12 4Z" fill="#f7bfd0"/>
+            <path d="M-6 3 Q-4-5 2-7 Q8-4 6 2 Q4 8-2 7 Q-7 6-6 3Z" fill="url(#roseDark)"/>
+            <path d="M-17-10 Q-11-21-3-23 M14-14 Q22-7 20 1" fill="none" stroke="#fff4f5" stroke-opacity=".72" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g class="sway" transform="translate(108 119) scale(.78)">
+            <path d="M-25 3 Q-27-21-6-28 Q1-18 7-29 Q27-19 25 3 Q20 24 0 26 Q-22 22-25 3Z" fill="url(#roseG)" stroke="#bb5478" stroke-width="1.5"/>
+            <path d="M-18 4 Q-18-13-5-20 Q2-10 8-20 Q19-12 18 3 Q15 17 1 19 Q-13 17-18 4Z" fill="#f4b0c4"/>
+            <path d="M-11 3 Q-11-7-1-13 Q5-6 10-12 Q14-2 10 6 Q6 13-1 12 Q-10 11-11 3Z" fill="url(#roseDark)"/>
+            <path d="M-15-9 Q-10-19-2-21" fill="none" stroke="#fff4f5" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g class="sway2" transform="translate(172 119) scale(.76)">
+            <path d="M-25 3 Q-27-21-6-28 Q1-18 7-29 Q27-19 25 3 Q20 24 0 26 Q-22 22-25 3Z" fill="url(#roseG)" stroke="#bb5478" stroke-width="1.5"/>
+            <path d="M-18 4 Q-18-13-5-20 Q2-10 8-20 Q19-12 18 3 Q15 17 1 19 Q-13 17-18 4Z" fill="#eb91ad"/>
+            <path d="M-11 3 Q-11-7-1-13 Q5-6 10-12 Q14-2 10 6 Q6 13-1 12 Q-10 11-11 3Z" fill="#f9c9d7"/>
+            <path d="M-15-9 Q-10-19-2-21" fill="none" stroke="#fff4f5" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g class="sway2" fill="#f4d992">
+            <circle cx="58" cy="111" r="3"/><circle cx="65" cy="103" r="2.4"/><circle cx="221" cy="112" r="3"/><circle cx="214" cy="103" r="2.4"/>
+          </g>
+          <path d="M39 151 Q140 181 241 151 L145 278 Q140 284 135 278 Z" fill="url(#wrapG)" stroke="#b98c86" stroke-width="1.6"/>
+          <path d="M39 151 Q78 178 137 198 L135 278 Q99 220 39 151Z" fill="#fff8ef" stroke="#d8b9ad" stroke-width="1"/>
+          <path d="M241 151 Q202 178 143 198 L145 278 Q181 220 241 151Z" fill="#edcbc8" opacity=".9" stroke="#c89b91" stroke-width="1"/>
+          <path d="M39 151 Q140 181 241 151 Q185 222 145 278 Q140 284 135 278 Q95 222 39 151Z" fill="url(#wrapG)" stroke="#b98c86" stroke-width="1.4"/>
+          <path d="M53 157 Q95 178 140 186 Q185 178 227 157" fill="none" stroke="#fffdf5" stroke-opacity=".95" stroke-width="3"/>
+          <path d="M102 204 Q123 220 140 279 M178 204 Q157 220 140 279" fill="none" stroke="#fffdf5" stroke-opacity=".72" stroke-width="2"/>
+          <g class="ribbon">
+            <path class="ribbon-loop left" d="M132 204 Q113 180 94 190 Q84 198 103 208 Q116 215 135 209Z" fill="url(#ribbonG)" stroke="#a84066" stroke-width="1.5"/>
+            <path class="ribbon-loop right" d="M148 204 Q167 180 186 190 Q196 198 177 208 Q164 215 145 209Z" fill="url(#ribbonG)" stroke="#a84066" stroke-width="1.5"/>
+            <path d="M99 193 Q111 188 126 203" fill="none" stroke="url(#ribbonHighlight)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M181 193 Q169 188 154 203" fill="none" stroke="url(#ribbonHighlight)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M132 208 Q123 221 120 243 L138 231 L143 211Z" fill="url(#ribbonG)" stroke="#a84066" stroke-width="1.2"/>
+            <path d="M148 208 Q157 221 160 243 L142 231 L137 211Z" fill="url(#ribbonG)" stroke="#a84066" stroke-width="1.2"/>
+            <path d="M129 215 L123 237 M151 215 L157 237" fill="none" stroke="url(#ribbonHighlight)" stroke-width="2.4" stroke-linecap="round"/>
+            <ellipse class="ribbon-knot" cx="140" cy="205" rx="13" ry="10" fill="url(#ribbonG)" stroke="#a84066" stroke-width="1.4"/>
+            <ellipse cx="137" cy="201" rx="4" ry="2.2" fill="#fff" opacity=".55"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter" id="counter">0/5 trái tim</div>
+  <div class="stars-container" id="starsContainer">
+    <button class="wish-star" onclick="openWish(1)" title="Điều ước 1">✧</button>
+    <button class="wish-star" onclick="openWish(2)" title="Điều ước 2">✦</button>
+    <button class="wish-star" onclick="openWish(3)" title="Điều ước 3">✧</button>
+  </div>
+  <p class="hint" id="hint">Bé Bôt đang chuẩn bị món quà...</p>
+  <div id="finalNote" class="final-note hidden">Gửi bạn thật nhiều năng lượng tích cực và niềm vui trong dịp 20/10 sắp tới!</div>
+</main>
+
+<div class="marquee-wrap" id="marqueeWrap">
+  <div class="hungnt-poem">Chúc nàng rạng rỡ như hoa,<br>20 tháng 10 ngập quà trao tay.<br>Việc gì cũng nhẹ nhàng bay,<br>Sống đời rực rỡ, hăng say yêu đời!</div>
+  <div class="marquee-row">
+    <div class="marquee-track" style="--marquee-speed:72s">
+      <span>HungNt gửi bạn lời chúc 20/10: Mong bạn luôn vui vẻ, xinh đẹp, hạnh phúc và tràn đầy năng lượng tích cực! · Điều ước thứ nhất: Sắp đến 20/10 rồi, chúc bạn luôn vui vẻ, xinh đẹp rạng rỡ và giữ mãi nụ cười tỏa nắng nhé! · Điều ước thứ hai: Mong mọi dự định và mong ước nhỏ xinh của bạn đều sẽ thành hiện thực. Mong rằng trên những chặng đường sắp tới, bạn sẽ luôn tìm thấy sự bình yên và có người sẵn sàng lắng nghe mọi tâm sự của bạn. · Điều ước thứ ba: Cảm ơn vì bạn đã xuất hiện và làm cho thế giới xung quanh trở nên vui vẻ hơn rất nhiều. Mong rằng bạn sẽ luôn có một người bạn chân thành ở bên, đồng hành và sẻ chia mọi điều. · Ba điều ước đã trọn vẹn! Chúc bạn có một ngày 20/10 thật ngọt ngào, tràn ngập tiếng cười và mong mọi điều tốt đẹp sẽ đến với bạn! · </span>
+      <span aria-hidden="true">HungNt gửi bạn lời chúc 20/10: Mong bạn luôn vui vẻ, xinh đẹp, hạnh phúc và tràn đầy năng lượng tích cực! · Điều ước thứ nhất: Sắp đến 20/10 rồi, chúc bạn luôn vui vẻ, xinh đẹp rạng rỡ và giữ mãi nụ cười tỏa nắng nhé! · Điều ước thứ hai: Mong mọi dự định và mong ước nhỏ xinh của bạn đều sẽ thành hiện thực. Mong rằng trên những chặng đường sắp tới, bạn sẽ luôn tìm thấy sự bình yên và có người sẵn sàng lắng nghe mọi tâm sự của bạn. · Điều ước thứ ba: Cảm ơn vì bạn đã xuất hiện và làm cho thế giới xung quanh trở nên vui vẻ hơn rất nhiều. Mong rằng bạn sẽ luôn có một người bạn chân thành ở bên, đồng hành và sẻ chia mọi điều. · Ba điều ước đã trọn vẹn! Chúc bạn có một ngày 20/10 thật ngọt ngào, tràn ngập tiếng cười và mong mọi điều tốt đẹp sẽ đến với bạn! · </span>
+    </div>
+  </div>
+</div>
+<video id="backgroundMusic" class="music-source" src="1017.mp4?v=20261017-2328" loop preload="metadata" playsinline aria-hidden="true" tabindex="-1"></video>
+<button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Bật nhạc nền">♫ Bật nhạc</button>
+
+<script>
+const letterStage=document.getElementById("letterStage");
+const envelope=document.getElementById("envelope");
+const letterHint=document.getElementById("letterHint");
+const mainCard=document.getElementById("mainCard");
+const robot=document.getElementById("robot");
+const message=document.getElementById("message");
+const messageWrap=document.getElementById("messageWrap");
+const hint=document.getElementById("hint");
+const button=document.getElementById("nextButton");
+const counter=document.getElementById("counter");
+const bouquet=document.getElementById("bouquet");
+const bouquetRow=document.getElementById("bouquetRow");
+const starsContainer=document.getElementById("starsContainer");
+const finalNote=document.getElementById("finalNote");
+const marqueeWrap=document.getElementById("marqueeWrap");
+const backgroundMusic=document.getElementById("backgroundMusic");
+const musicToggle=document.getElementById("musicToggle");
+
+let typing=false,stage=-1,score=0,gameActive=false,heartElements=[],openedWishes=0,letterOpened=false;
+
+function updateMusicButton(isPlaying){
+  musicToggle.textContent=isPlaying?"♫ Tắt nhạc":"♫ Bật nhạc";
+  musicToggle.setAttribute("aria-pressed",String(isPlaying));
+  musicToggle.setAttribute("aria-label",isPlaying?"Tắt nhạc nền":"Bật nhạc nền");
+  musicToggle.title=isPlaying?"Tắt nhạc nền":"Bật nhạc nền";
+}
+function startMusic(){
+  backgroundMusic.muted=false;
+  backgroundMusic.volume=1;
+  backgroundMusic.play().then(()=>updateMusicButton(true)).catch(()=>{
+    updateMusicButton(false);
+    musicToggle.textContent="♫ Chạm để bật nhạc";
+    musicToggle.title="Không phát được nhạc. Chạm để thử lại.";
+  });
+}
+musicToggle.addEventListener("click",()=>{
+  if(backgroundMusic.paused)startMusic();
+  else{
+    backgroundMusic.pause();
+    updateMusicButton(false);
+  }
+});
+
+const intro=[
+"Hi, chào cậu nha!\n\nMình là Bé Bôt, robot nhỏ xíu sống trong trang web này nè! Bình thường mình chỉ nằm ngủ trong máy tính thôi, nhưng hôm nay mình có một nhiệm vụ cực kỳ đặc biệt đấy.",
+"Mà tớ quên mất! Hôm nay có người nhờ tớ gửi cậu một món quà. Người đó là HungNt nè! Cậu ấy dặn tớ phải mang thông điệp vui vẻ này đến cho cậu đấy. Tớ giữ bí mật suốt, may quá chưa bị lộ!",
+"Ui... cậu hay cười trông xinh quá trời luôn á!\n\nTớ nhìn mãi mà thấy vui lây nè. Ơ kìa, hình như mấy trái tim trốn ra ngoài hết rồi! Cậu giúp tớ bắt lại 5 trái tim nha!"
+];
+
+function openLetter(){
+  if(letterOpened)return;
+  letterOpened=true;
+  startMusic();
+  envelope.classList.add("open");
+  letterHint.textContent="Đang mở thư...";
+  createParticles(12);
+  setTimeout(()=>{
+    letterStage.classList.add("hide");
+    setTimeout(()=>{
+      letterStage.style.display="none";
+      mainCard.classList.add("show");
+      setTimeout(()=>showIntro(0),400);
+    },600);
+  },1100);
+}
+envelope.addEventListener("click",openLetter);
+envelope.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openLetter()}});
+
+function typeText(text,cb){
+  typing=true;message.textContent="";let i=0;
+  const t=setInterval(()=>{
+    message.textContent+=text[i];i++;
+    if(i>=text.length){clearInterval(t);typing=false;if(cb)cb()}
+  },25);
+}
+
+function showIntro(index){
+  stage=index;
+  button.disabled=false;
+  robot.classList.toggle("blush",index===2);
+  typeText(intro[index],()=>{
+    if(index===0){hint.textContent="Tớ có một bí mật muốn kể cậu nghe...";button.textContent="Kể tớ nghe đi"}
+    else if(index===1){hint.textContent="Nhiệm vụ bí mật sắp bắt đầu!";button.textContent="Tớ sẵn sàng rồi!"}
+    else{hint.textContent="Chuẩn bị bắt tim nha, bạn!";button.textContent="Bắt tim nào"}
+    button.classList.remove("hidden");
+  });
+}
+
+button.addEventListener("click",()=>{
+  if(typing)return;
+  button.classList.add("hidden");
+  if(stage<2)showIntro(stage+1);
+  else if(stage===2)startGame();
+  else if(stage===4){
+    finalNote.classList.add("hidden");
+    marqueeWrap.classList.add("active");
+    createParticles(22);
+    button.disabled=true;
+  }
+});
+
+function startGame(){
+  stage=2;score=0;gameActive=true;
+  button.textContent="Đang tìm bó hoa...";
+  button.disabled=true;
+  button.classList.remove("hidden");
+  counter.style.display="block";
+  counter.textContent="0/5 trái tim";
+  hint.textContent="Chạm vào từng trái tim đang bay trên màn hình!";
+  robot.classList.add("blush");
+  const pos=[[12,22],[78,22],[16,70],[76,68],[48,12]];
+  for(let i=0;i<5;i++){
+    const h=document.createElement("button");
+    h.className="game-heart";
+    h.setAttribute("aria-label","Bắt trái tim");
+    h.innerHTML='<svg viewBox="0 0 32 30"><path d="M16 28C16 28 2 18 2 10.5C2 6.5 5 3.5 8.5 3.5C11.5 3.5 14 5.5 16 8C18 5.5 20.5 3.5 23.5 3.5C27 3.5 30 6.5 30 10.5C30 18 16 28 16 28Z" fill="url(#hg)" stroke="#e85a8a" stroke-width="1.2"/><defs><linearGradient id="hg" x1="2" y1="3" x2="30" y2="28"><stop stop-color="#ffb3c9"/><stop offset="1" stop-color="#e05a8a"/></linearGradient></defs></svg>';
+    h.style.left=`calc(${pos[i][0]}vw - 23px)`;
+    h.style.top=`calc(${pos[i][1]}vh - 23px)`;
+    h.style.animationDelay=(Math.random()*.7)+"s";
+    h.addEventListener("click",()=>catchHeart(h));
+    document.body.appendChild(h);
+    heartElements.push(h);
+  }
+}
+
+function catchHeart(heart){
+  if(!gameActive||heart.classList.contains("caught"))return;
+  heart.classList.add("caught");
+  score++;
+  counter.textContent=score+"/5 trái tim";
+  createParticles(3);
+  setTimeout(()=>heart.remove(),380);
+  if(score===5){
+    gameActive=false;
+    counter.style.display="none";
+    heartElements.forEach(h=>{if(h.isConnected)h.remove()});
+    heartElements=[];
+    robot.classList.remove("blush");
+
+    // 1) Hiện bó hoa trước
+    setTimeout(()=>{
+      mainCard.classList.add("wish-stage");
+      messageWrap.classList.add("wish-layout");
+      message.classList.add("message-hidden");
+      button.classList.add("hidden");
+      bouquetRow.classList.add("has-flower");
+      bouquet.classList.add("show");
+      robot.classList.add("blush");
+      createParticles(20);
+
+      // Chỉ hiện lời mời mở điều ước sau khi bó hoa đã xuất hiện.
+      setTimeout(()=>{
+        stage=3;
+        message.classList.remove("message-hidden");
+        typeText("Tớ có 3 điều ước nhỏ xinh dành cho bạn!\n\nChạm vào từng ngôi sao để mở lời chúc nhé.",()=>{
+          hint.textContent="Chạm vào các ngôi sao để nhận điều ước!";
+          starsContainer.style.display="flex";
+          button.classList.add("hidden");
+        });
+      },1300);
+    },400);
+  }
+}
+
+const wishes=[
+" Điều ước thứ nhất: Sắp đến 20/10 rồi, chúc bạn luôn vui vẻ, xinh đẹp rạng rỡ và giữ mãi nụ cười tỏa nắng nhé!",
+" Điều ước thứ hai: Mong mọi dự định và mong ước nhỏ xinh của cậu đều sẽ thành hiện thực. Và... mong rằng trên những chặng đường sắp tới, cậu sẽ luôn tìm thấy sự bình yên và có người sẵn sàng lắng nghe mọi tâm sự của cậu.",
+" Điều ước thứ ba (Bật mí nhỏ): Cảm ơn vì bạn đã xuất hiện và làm cho thế giới xung quanh trở nên vui vẻ hơn rất nhiều. Mong rằng bạn sẽ luôn có một người bạn chân thành ở bên, đồng hành và sẻ chia mọi điều."
+];
+let wishOpenedFlags=[false,false,false];
+
+function openWish(num){
+  if(typing||wishOpenedFlags[num-1])return;
+  wishOpenedFlags[num-1]=true;openedWishes++;
+  const btns=document.querySelectorAll(".wish-star");
+  btns[num-1].classList.add("opened");
+  btns[num-1].textContent="✦";
+  btns[num-1].disabled=true;
+  createParticles(8);
+  typeText(wishes[num-1],()=>{
+    if(openedWishes<3)hint.textContent=`Đã mở ${openedWishes}/3 điều ước. Hãy chọn tiếp ngôi sao khác nhé!`;
+    else{
+      hint.textContent="Đã thu thập đủ 3 điều ước tuyệt vời dành cho bạn!";
+      starsContainer.style.display="none";
+      setTimeout(()=>{
+        stage=4;
+        typeText(" Ba điều ước đã trọn vẹn! Sắp đến 20/10 rồi, chúc bạn có một ngày thật ngọt ngào và tràn ngập tiếng cười nhé!\n\n— Mong mọi điều tốt đẹp sẽ đến với bạn —",()=>{
+          button.textContent="Nhận lời chúc từ HungNt";
+          button.disabled=false;
+          button.classList.remove("hidden");
+          finalNote.classList.remove("hidden");
+        });
+      },900);
+    }
+  });
+}
+
+function createParticles(n){
+  for(let i=0;i<n;i++){
+    const p=document.createElement("span");
+    p.className="particle"+(Math.random()>.55?" spark":"");
+    p.style.left=Math.random()*100+"vw";
+    p.style.setProperty("--duration",(3.5+Math.random()*3)+"s");
+    p.style.setProperty("--drift",(Math.random()*100-50)+"px");
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),6500);
+  }
+}
+setInterval(()=>{if(Math.random()>.6)createParticles(1)},3000);
+function createMeteor(){
+  const meteor=document.createElement("span");
+  meteor.className="meteor";
+  meteor.style.setProperty("--meteor-top",(Math.random()*65+2)+"vh");
+  meteor.style.setProperty("--meteor-left",(55+Math.random()*50)+"vw");
+  meteor.style.setProperty("--meteor-length",(55+Math.random()*55)+"px");
+  meteor.style.setProperty("--meteor-angle",(128+Math.random()*14)+"deg");
+  meteor.style.setProperty("--meteor-duration",(1.35+Math.random()*.65)+"s");
+  document.body.appendChild(meteor);
+  setTimeout(()=>meteor.remove(),2200);
+}
+setInterval(createMeteor,1100);
+</script>
+</body>
+</html>
